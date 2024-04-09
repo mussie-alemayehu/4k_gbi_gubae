@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './screens/role_choice_screen.dart';
+
 import './screens/auth_screen.dart';
 
 void main() {
@@ -22,6 +24,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const AuthScreen(),
+      routes: {
+        RoleChoiceScreen.routeName: (_) => const RoleChoiceScreen(),
+      },
     );
   }
 }

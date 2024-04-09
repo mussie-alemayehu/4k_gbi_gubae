@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import './role_choice_screen.dart';
 import '../widgets/auth_screen_widgets/custom_app_bar.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -48,7 +49,8 @@ class _AuthScreenState extends State<AuthScreen> {
                   ),
                   const SizedBox(height: 32),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => Navigator.of(context)
+                        .pushReplacementNamed(RoleChoiceScreen.routeName),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).primaryColor,
                       foregroundColor: Theme.of(context).colorScheme.secondary,
