@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gubae_ze4k/screens/attendance_recording_screen.dart';
 
 import '../widgets/auth_screen_widgets/custom_app_bar.dart';
 
@@ -73,7 +74,9 @@ class RoleChoiceScreen extends StatelessWidget {
                   _customElevatedButton(
                     context,
                     name: 'አመልካች',
-                    action: () {},
+                    action: () => Navigator.of(context).pushNamed(
+                      AttendanceRecordingScreen.routeName,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   _customElevatedButton(
