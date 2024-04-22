@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/attendance_recording_screen_widgets/custom_app_bar.dart';
+import '../widgets/custom_app_bar.dart';
 import '../widgets/attendance_recording_screen_widgets/batch_choice_item.dart';
 
 class AttendanceRecordingScreen extends StatefulWidget {
@@ -29,7 +29,7 @@ class _AttendanceRecordingScreenState extends State<AttendanceRecordingScreen> {
       backgroundColor: Theme.of(context).colorScheme.secondary,
       body: Column(
         children: [
-          const CustomAppBar(),
+          const CustomAppBar('አመልካች'),
           SizedBox(
             height: 48,
             child: Padding(

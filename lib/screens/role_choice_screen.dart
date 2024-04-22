@@ -1,35 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:gubae_ze4k/screens/attendance_recording_screen.dart';
 
 import '../widgets/auth_screen_widgets/custom_app_bar.dart';
+import './attendance_recording_screen.dart';
+import './new_student_screen.dart';
 
 class RoleChoiceScreen extends StatelessWidget {
   static const routeName = '/role_choice';
 
   const RoleChoiceScreen({super.key});
 
-  // a function that returns a custom elevated button with the given arguments
-  ElevatedButton _customElevatedButton(
+  // a function that returns a custom button with the given arguments
+  Widget _customButton(
     BuildContext ctx, {
     required String name,
     required Function() action,
   }) {
-    return ElevatedButton(
-      onPressed: action,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Theme.of(ctx).primaryColor,
-        foregroundColor: Theme.of(ctx).colorScheme.secondary,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+    final dimension = MediaQuery.of(ctx).size.width / 5;
+
+    return InkWell(
+      onTap: action,
+      splashColor: Theme.of(ctx).colorScheme.secondary.withOpacity(0.2),
+      overlayColor: MaterialStatePropertyAll(
+        Theme.of(ctx).colorScheme.onPrimary.withOpacity(0.8),
       ),
-      child: Container(
-        width: MediaQuery.of(ctx).size.width / 4,
-        padding: const EdgeInsets.all(4),
-        child: Text(
-          name,
-          textAlign: TextAlign.center,
-        ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(height: 4),
+          Container(
+            width: dimension,
+            height: dimension,
+            decoration: BoxDecoration(
+              color: Theme.of(ctx).primaryColor,
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            name,
+            style: TextStyle(color: Theme.of(ctx).primaryColor),
+          ),
+        ],
       ),
     );
   }
@@ -70,19 +81,61 @@ class RoleChoiceScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 32),
-                  _customElevatedButton(
-                    context,
-                    name: 'አመልካች',
-                    action: () => Navigator.of(context).pushNamed(
-                      AttendanceRecordingScreen.routeName,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  _customElevatedButton(
-                    context,
-                    name: 'ሪፖርት',
-                    action: () {},
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _customButton(
+                              context,
+                              name: 'አመልካች',
+                              action: () => Navigator.of(context).pushNamed(
+                                AttendanceRecordingScreen.routeName,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: _customButton(
+                              context,
+                              name: 'ሪፖርት',
+                              action: () {},
+                            ),
+                          ),
+                          Expanded(
+                            child: _customButton(
+                              context,
+                              name: 'የተማሪ መረጃ',
+                              action: () {},
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _customButton(
+                              context,
+                              name: 'ተማሪ ጨምር',
+                              action: () => Navigator.of(context)
+                                  .pushNamed(NewStudentScreen.routeName),
+                            ),
+                          ),
+                          Expanded(
+                            child: _customButton(
+                              context,
+                              name: 'መልእክት',
+                              action: () {},
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),

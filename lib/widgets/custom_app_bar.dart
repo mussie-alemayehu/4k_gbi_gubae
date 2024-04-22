@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({super.key});
+  final String currentLocation;
+
+  const CustomAppBar(this.currentLocation, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +21,16 @@ class CustomAppBar extends StatelessWidget {
         padding: const EdgeInsets.only(top: 32),
         child: Row(
           children: [
+            // a navigation arrow that will take us one step back
             Expanded(
               child: Center(
                 child: IconButton(
                   icon: const Icon(Icons.arrow_back),
-                  onPressed: () {},
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
               ),
             ),
+            // a logo of 4k gbi gubae
             Expanded(
               child: Center(
                 child: SizedBox(
@@ -42,17 +46,18 @@ class CustomAppBar extends StatelessWidget {
                 ),
               ),
             ),
-            const Expanded(
+            // a text description of our location in the app
+            Expanded(
               flex: 3,
               child: Padding(
-                padding: EdgeInsets.only(left: 16),
+                padding: const EdgeInsets.only(left: 16),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('፬ ኪሎ ግቢ ጉባኤ', style: TextStyle(fontSize: 20)),
-                    SizedBox(height: 4),
-                    Text('አመልካች', style: TextStyle(fontSize: 16)),
+                    const Text('፬ ኪሎ ግቢ ጉባኤ', style: TextStyle(fontSize: 20)),
+                    const SizedBox(height: 4),
+                    Text(currentLocation, style: const TextStyle(fontSize: 16)),
                   ],
                 ),
               ),
