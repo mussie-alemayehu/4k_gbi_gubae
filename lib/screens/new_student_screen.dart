@@ -19,6 +19,15 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    const departments = [
+      'Computer Science',
+      'Biology',
+      'Chemistry',
+      'Physics',
+      'Mathematics',
+      'Sport Science',
+    ];
+    const sexes = ['ወንድ', 'ሴት'];
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.secondary,
@@ -52,36 +61,45 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
                         title: 'ሙሉ ሥም',
                         validator: validators.nameValidator,
                       ),
+                      const SizedBox(height: 16),
                       _inputField(
                         context: context,
                         title: 'ክርስትና ሥም',
                         validator: validators.nameValidator,
                       ),
+                      const SizedBox(height: 16),
                       _inputField(
                         context: context,
                         title: 'መለያ (ID)',
                         validator: validators.idValidator,
                       ),
-                      _inputField(
+                      const SizedBox(height: 16),
+                      _dropdown(
                         context: context,
-                        title: 'ጾታ',
+                        title: 'ፆታ',
+                        hint: 'ፆታ ይምረጡ....',
+                        values: sexes,
                       ),
-                      // TODO: covert to dropdown menu
+                      const SizedBox(height: 16),
                       _inputField(
                         context: context,
                         title: 'ስልክ',
                         validator: validators.phoneValidator,
                       ),
-                      // TODO: covert to dropdown menu
-                      _inputField(
+                      const SizedBox(height: 16),
+                      _dropdown(
                         context: context,
                         title: 'ዲፓርትመንት',
+                        hint: 'ዲፓርትመንት ይምረጡ....',
+                        values: departments,
                       ),
+                      const SizedBox(height: 16),
                       _inputField(
                         context: context,
                         title: 'ባች',
                         validator: validators.batchValidator,
                       ),
+                      const SizedBox(height: 16),
                       Text(
                         'ተቆጣጣሪ (optional)',
                         style: TextStyle(color: Theme.of(context).primaryColor),
@@ -144,47 +162,91 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
     required String title,
     String? Function(String?)? validator,
   }) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
+    return TextFormField(
+      style: TextStyle(color: Theme.of(context).primaryColor),
+      validator: validator,
+      decoration: InputDecoration(
+        // isDense has to be true so that we can set custom padding in the
+        // TextField
+        label: Text(
           title,
-          style: TextStyle(color: Theme.of(context).primaryColor),
+          style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 12),
         ),
-        TextFormField(
-          style: TextStyle(color: Theme.of(context).primaryColor),
-          validator: validator,
-          decoration: InputDecoration(
-            // isDense has to be true so that we can set custom padding in the
-            // TextField
-            isDense: true,
-            contentPadding: const EdgeInsets.symmetric(vertical: 6),
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.primary,
-              ),
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.primary,
-                width: 3,
-              ),
-            ),
-            errorBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.error,
-              ),
-            ),
-            border: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
+        isDense: true,
+        contentPadding: const EdgeInsets.symmetric(vertical: 6),
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.primary,
           ),
         ),
-        const SizedBox(height: 16),
-      ],
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.primary,
+            width: 3,
+          ),
+        ),
+        errorBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.error,
+          ),
+        ),
+        border: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Theme.of(context).primaryColor,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _dropdown({
+    required BuildContext context,
+    required String title,
+    required String hint,
+    required List<String> values,
+  }) {
+    return DropdownMenu(
+      width: 200,
+      trailingIcon: Icon(
+        Icons.arrow_drop_down,
+        color: Theme.of(context).primaryColor,
+      ),
+      selectedTrailingIcon: Icon(
+        Icons.arrow_drop_up,
+        color: Theme.of(context).primaryColor,
+      ),
+      label: Text(
+        title,
+        style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 12),
+      ),
+      textStyle: TextStyle(
+        color: Theme.of(context).primaryColor,
+      ),
+      menuStyle: MenuStyle(
+        visualDensity: VisualDensity.compact,
+        backgroundColor: MaterialStatePropertyAll(
+          Theme.of(context).colorScheme.secondary,
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        isDense: true,
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ),
+      ),
+      dropdownMenuEntries: values.map<DropdownMenuEntry<String>>(
+        (value) {
+          return DropdownMenuEntry<String>(
+            label: value,
+            value: value,
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).primaryColor,
+            ),
+          );
+        },
+      ).toList(),
     );
   }
 }
