@@ -63,7 +63,7 @@ class RoleChoiceScreen extends StatelessWidget {
                     '፬ ኪሎ ግቢ ጉባኤ',
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
-                      fontSize: 48,
+                      fontSize: 40,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

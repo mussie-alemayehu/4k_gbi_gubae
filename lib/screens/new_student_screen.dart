@@ -13,6 +13,7 @@ class NewStudentScreen extends StatefulWidget {
 
 class _NewStudentScreenState extends State<NewStudentScreen> {
   bool checked = false;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -41,15 +42,40 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: width / 8),
                 child: Form(
+                  key: _formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _inputField(context, 'የመጀመሪያ ሥም'),
-                      _inputField(context, 'የአባት ሥም'),
-                      _inputField(context, 'ጾታ'),
-                      _inputField(context, 'ስልክ'),
-                      _inputField(context, 'ዲፓርትመንት'),
-                      _inputField(context, 'ባች'),
+                      _inputField(
+                        context: context,
+                        title: 'ሙሉ ሥም',
+                      ),
+                      _inputField(
+                        context: context,
+                        title: 'ክርስትና ሥም',
+                      ),
+                      _inputField(
+                        context: context,
+                        title: 'መለያ (ID)',
+                      ),
+                      _inputField(
+                        context: context,
+                        title: 'ጾታ',
+                      ),
+                      // TODO: covert to dropdown menu
+                      _inputField(
+                        context: context,
+                        title: 'ስልክ',
+                      ),
+                      // TODO: covert to dropdown menu
+                      _inputField(
+                        context: context,
+                        title: 'ዲፓርትመንት',
+                      ),
+                      _inputField(
+                        context: context,
+                        title: 'ባች',
+                      ),
                       Text(
                         'ተቆጣጣሪ (optional)',
                         style: TextStyle(color: Theme.of(context).primaryColor),
@@ -77,17 +103,22 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
                       ),
                       const SizedBox(height: 16),
                       Center(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            foregroundColor:
-                                Theme.of(context).colorScheme.secondary,
-                            backgroundColor: Theme.of(context).primaryColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor:
+                                  Theme.of(context).colorScheme.secondary,
+                              backgroundColor: Theme.of(context).primaryColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
                             ),
+                            onPressed: () {
+                              _formKey.currentState!.validate();
+                            },
+                            child: const Text('ተማሪ ጨምር'),
                           ),
-                          onPressed: () {},
-                          child: const Text('ተማሪ ጨምር'),
                         ),
                       ),
                     ],
@@ -101,7 +132,12 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
     );
   }
 
-  Widget _inputField(BuildContext context, String title) {
+  // this function will return a new text field with the provided arguments
+  Widget _inputField({
+    required BuildContext context,
+    required String title,
+    String? Function(String?)? validator,
+  }) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,6 +148,7 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
         ),
         TextFormField(
           style: TextStyle(color: Theme.of(context).primaryColor),
+          validator: validator,
           decoration: InputDecoration(
             // isDense has to be true so that we can set custom padding in the
             // TextField
