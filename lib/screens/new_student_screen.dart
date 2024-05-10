@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/custom_app_bar.dart';
+import '../services/input_validators.dart' as validators;
 
 class NewStudentScreen extends StatefulWidget {
   static const routeName = '/new_student';
@@ -49,14 +50,17 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
                       _inputField(
                         context: context,
                         title: 'ሙሉ ሥም',
+                        validator: validators.nameValidator,
                       ),
                       _inputField(
                         context: context,
                         title: 'ክርስትና ሥም',
+                        validator: validators.nameValidator,
                       ),
                       _inputField(
                         context: context,
                         title: 'መለያ (ID)',
+                        validator: validators.idValidator,
                       ),
                       _inputField(
                         context: context,
@@ -66,6 +70,7 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
                       _inputField(
                         context: context,
                         title: 'ስልክ',
+                        validator: validators.phoneValidator,
                       ),
                       // TODO: covert to dropdown menu
                       _inputField(
@@ -75,6 +80,7 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
                       _inputField(
                         context: context,
                         title: 'ባች',
+                        validator: validators.batchValidator,
                       ),
                       Text(
                         'ተቆጣጣሪ (optional)',
