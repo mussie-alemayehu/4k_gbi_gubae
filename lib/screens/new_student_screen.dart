@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import '../widgets/custom_app_bar.dart';
@@ -79,6 +81,7 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
                         title: 'ፆታ',
                         hint: 'ፆታ ይምረጡ....',
                         values: sexes,
+                        width: width,
                       ),
                       const SizedBox(height: 16),
                       _inputField(
@@ -92,6 +95,7 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
                         title: 'ዲፓርትመንት',
                         hint: 'ዲፓርትመንት ይምረጡ....',
                         values: departments,
+                        width: width,
                       ),
                       const SizedBox(height: 16),
                       _inputField(
@@ -204,21 +208,11 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
     required String title,
     required String hint,
     required List<String> values,
+    required double width,
   }) {
     return DropdownMenu(
-      width: 200,
-      trailingIcon: Icon(
-        Icons.arrow_drop_down,
-        color: Theme.of(context).primaryColor,
-      ),
-      selectedTrailingIcon: Icon(
-        Icons.arrow_drop_up,
-        color: Theme.of(context).primaryColor,
-      ),
-      label: Text(
-        title,
-        style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 12),
-      ),
+      width: max(200, width * 0.7).toDouble(),
+      label: Text(title),
       textStyle: TextStyle(
         color: Theme.of(context).primaryColor,
       ),
@@ -230,6 +224,9 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
       ),
       inputDecorationTheme: InputDecorationTheme(
         isDense: true,
+        suffixIconColor: Theme.of(context).primaryColor,
+        labelStyle:
+            TextStyle(color: Theme.of(context).primaryColor, fontSize: 12),
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(
             color: Theme.of(context).colorScheme.primary,
