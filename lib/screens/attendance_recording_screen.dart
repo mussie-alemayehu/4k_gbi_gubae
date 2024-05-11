@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/custom_app_bar.dart';
-import '../widgets/attendance_recording_screen_widgets/batch_choice_item.dart';
+import '../widgets/batch_selector.dart';
 
 class AttendanceRecordingScreen extends StatefulWidget {
   static const routeName = '/attendance_recording';
@@ -14,6 +14,7 @@ class AttendanceRecordingScreen extends StatefulWidget {
 }
 
 class _AttendanceRecordingScreenState extends State<AttendanceRecordingScreen> {
+  // TODO: initialize the batches dynamically
   final batches = [2010, 2011, 2012, 2013, 2014, 2015, 2016];
   late int selectedYear;
 
@@ -23,6 +24,11 @@ class _AttendanceRecordingScreenState extends State<AttendanceRecordingScreen> {
     selectedYear = batches[0];
   }
 
+  // to update the currently selected batch
+  void _updateBatch(int batch) {
+    setState(() => selectedYear = batch);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,25 +36,11 @@ class _AttendanceRecordingScreenState extends State<AttendanceRecordingScreen> {
       body: Column(
         children: [
           const CustomAppBar('አመልካች'),
-          SizedBox(
-            height: 48,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: ListView.builder(
-                itemCount: batches.length,
-                itemBuilder: (ctx, index) => GestureDetector(
-                  child: BatchChoiceItem(
-                    year: batches[index],
-                    selectedYear: selectedYear,
-                  ),
-                  onTap: () {
-                    setState(() => selectedYear = batches[index]);
-                  },
-                ),
-                scrollDirection: Axis.horizontal,
-              ),
-            ),
-          ),
+          BatchSelector(
+            batches: batches,
+            selectedBatch: selectedYear,
+            onTap: _updateBatch,
+          )
         ],
       ),
     );
