@@ -21,13 +21,16 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+
     const departments = [
       'Computer Science',
       'Biology',
       'Chemistry',
       'Physics',
       'Mathematics',
+      'Geology',
       'Sport Science',
+      'Teaching',
     ];
     const sexes = ['ወንድ', 'ሴት'];
 
