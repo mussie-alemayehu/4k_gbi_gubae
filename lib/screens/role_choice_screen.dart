@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/auth_screen_widgets/custom_app_bar.dart';
+import '../widgets/auth_screen_widgets/auth_app_bar.dart';
 import './attendance_recording_screen.dart';
 import './new_student_screen.dart';
+import './students_list_screen.dart';
 
 class RoleChoiceScreen extends StatelessWidget {
   static const routeName = '/role_choice';
@@ -53,7 +54,7 @@ class RoleChoiceScreen extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const CustomAppBar(),
+            const AuthAppBar(),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 32),
               child: Column(
@@ -107,7 +108,9 @@ class RoleChoiceScreen extends StatelessWidget {
                             child: _customButton(
                               context,
                               name: 'የተማሪ መረጃ',
-                              action: () {},
+                              action: () => Navigator.of(context).pushNamed(
+                                StudentsListScreen.routeName,
+                              ),
                             ),
                           ),
                         ],

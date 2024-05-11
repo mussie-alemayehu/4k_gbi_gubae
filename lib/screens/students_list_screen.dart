@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './template_screen.dart';
+
 class StudentsListScreen extends StatelessWidget {
   static const routeName = '/students_list';
 
@@ -7,6 +9,9 @@ class StudentsListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const TemplateScreen(
+      title: 'የተማሪ መረጃ',
+      body: Placeholder(),
+    );
   }
 }

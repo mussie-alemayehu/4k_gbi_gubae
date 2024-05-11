@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import '../widgets/custom_app_bar.dart';
+import './template_screen.dart';
 import '../services/input_validators.dart' as validators;
 
 class NewStudentScreen extends StatefulWidget {
@@ -31,12 +31,11 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
     ];
     const sexes = ['ወንድ', 'ሴት'];
 
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.secondary,
+    return TemplateScreen(
+      title: 'ተማሪ ጨምር',
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CustomAppBar('ተማሪ ጨምር'),
           const SizedBox(height: 8),
           Padding(
             padding: const EdgeInsets.all(16),

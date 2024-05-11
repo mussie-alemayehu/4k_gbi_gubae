@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/custom_app_bar.dart';
+import './template_screen.dart';
 import '../widgets/batch_selector.dart';
 
 class AttendanceRecordingScreen extends StatefulWidget {
@@ -31,16 +31,15 @@ class _AttendanceRecordingScreenState extends State<AttendanceRecordingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.secondary,
+    return TemplateScreen(
+      title: 'አመልካች',
       body: Column(
         children: [
-          const CustomAppBar('አመልካች'),
           BatchSelector(
             batches: batches,
             selectedBatch: selectedYear,
             onTap: _updateBatch,
-          )
+          ),
         ],
       ),
     );

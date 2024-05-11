@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './role_choice_screen.dart';
-import '../widgets/auth_screen_widgets/custom_app_bar.dart';
+import '../widgets/auth_screen_widgets/auth_app_bar.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -19,7 +19,7 @@ class _AuthScreenState extends State<AuthScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const CustomAppBar(),
+            const AuthAppBar(),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 32),
               child: Column(

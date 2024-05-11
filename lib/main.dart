@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import './screens/role_choice_screen.dart';
 import './screens/attendance_recording_screen.dart';
 import './screens/new_student_screen.dart';
+import './screens/students_list_screen.dart';
 
 import './screens/auth_screen.dart';
 
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         AttendanceRecordingScreen.routeName: (_) =>
             const AttendanceRecordingScreen(),
         NewStudentScreen.routeName: (_) => const NewStudentScreen(),
+        StudentsListScreen.routeName: (_) => const StudentsListScreen(),
       },
     );
   }
