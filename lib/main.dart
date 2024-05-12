@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gubae_ze4k/providers/student_provider.dart';
 import 'package:provider/provider.dart';
 
 import './screens/role_choice_screen.dart';
 import './screens/attendance_recording_screen.dart';
 import './screens/new_student_screen.dart';
 import './screens/students_list_screen.dart';
+import './providers/student_provider.dart';
 
 import './screens/auth_screen.dart';
 
