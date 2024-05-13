@@ -1,8 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:gubae_ze4k/models/student.dart';
+import 'package:provider/provider.dart';
 
 import './template_screen.dart';
+import '../providers/student_provider.dart';
 import '../services/input_validators.dart' as validators;
 
 class NewStudentScreen extends StatefulWidget {
@@ -17,6 +20,7 @@ class NewStudentScreen extends StatefulWidget {
 class _NewStudentScreenState extends State<NewStudentScreen> {
   bool checked = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final Map<String, dynamic> studentInfo = {};
 
   @override
   Widget build(BuildContext context) {
@@ -64,47 +68,69 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
                         context: context,
                         title: 'ሙሉ ሥም',
                         validator: validators.nameValidator,
+                        onSaved: (String? value) {
+                          if (value == null) return;
+                          studentInfo['full_name'] = value;
+                        },
                       ),
                       const SizedBox(height: 16),
                       _inputField(
-                        context: context,
-                        title: 'ክርስትና ሥም',
-                        validator: validators.nameValidator,
-                      ),
+                          context: context,
+                          title: 'ክርስትና ሥም',
+                          validator: validators.nameValidator,
+                          onSaved: (String? value) {
+                            if (value == null) return;
+                            studentInfo['christian_name'] = value;
+                          }),
                       const SizedBox(height: 16),
                       _inputField(
-                        context: context,
-                        title: 'መለያ (ID)',
-                        validator: validators.idValidator,
-                      ),
+                          context: context,
+                          title: 'መለያ (ID)',
+                          validator: validators.idValidator,
+                          onSaved: (String? value) {
+                            if (value == null) return;
+                            studentInfo['id'] = value;
+                          }),
                       const SizedBox(height: 16),
                       _dropdown(
-                        context: context,
-                        title: 'ፆታ',
-                        hint: 'ፆታ ይምረጡ....',
-                        values: sexes,
-                        width: width,
-                      ),
+                          context: context,
+                          title: 'ፆታ',
+                          hint: 'ፆታ ይምረጡ....',
+                          values: sexes,
+                          width: width,
+                          onSelected: (String? value) {
+                            if (value == null) return;
+                            studentInfo['sex'] = value;
+                          }),
                       const SizedBox(height: 16),
                       _inputField(
-                        context: context,
-                        title: 'ስልክ',
-                        validator: validators.phoneValidator,
-                      ),
+                          context: context,
+                          title: 'ስልክ',
+                          validator: validators.phoneValidator,
+                          onSaved: (String? value) {
+                            if (value == null) return;
+                            studentInfo['phone'] = value;
+                          }),
                       const SizedBox(height: 16),
                       _dropdown(
-                        context: context,
-                        title: 'ዲፓርትመንት',
-                        hint: 'ዲፓርትመንት ይምረጡ....',
-                        values: departments,
-                        width: width,
-                      ),
+                          context: context,
+                          title: 'ዲፓርትመንት',
+                          hint: 'ዲፓርትመንት ይምረጡ....',
+                          values: departments,
+                          width: width,
+                          onSelected: (String? value) {
+                            if (value == null) return;
+                            studentInfo['department'] = value;
+                          }),
                       const SizedBox(height: 16),
                       _inputField(
-                        context: context,
-                        title: 'ባች',
-                        validator: validators.batchValidator,
-                      ),
+                          context: context,
+                          title: 'ባች',
+                          validator: validators.batchValidator,
+                          onSaved: (String? value) {
+                            if (value == null) return;
+                            studentInfo['batch'] = int.parse(value);
+                          }),
                       const SizedBox(height: 16),
                       Text(
                         'ተቆጣጣሪ (optional)',
@@ -145,7 +171,19 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
                               ),
                             ),
                             onPressed: () {
-                              _formKey.currentState!.validate();
+                              final isValid = _formKey.currentState!.validate();
+                              if (isValid) {
+                                // save the form to save values to the studentInfo map
+                                _formKey.currentState!.save();
+
+                                // add the students to the app
+                                Provider.of<StudentProvider>(context,
+                                        listen: false)
+                                    .addStudent(Student.fromMap(studentInfo));
+
+                                // go back to main screen
+                                Navigator.of(context).pop();
+                              }
                             },
                             child: const Text('ተማሪ ጨምር'),
                           ),
@@ -166,6 +204,7 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
   Widget _inputField({
     required BuildContext context,
     required String title,
+    required void Function(String?) onSaved,
     String? Function(String?)? validator,
   }) {
     return TextFormField(
@@ -202,6 +241,7 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
           ),
         ),
       ),
+      onSaved: onSaved,
     );
   }
 
@@ -211,6 +251,7 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
     required String hint,
     required List<String> values,
     required double width,
+    required void Function(String?) onSelected,
   }) {
     return DropdownMenu(
       width: max(200, width * 0.7).toDouble(),
@@ -235,6 +276,7 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
           ),
         ),
       ),
+      onSelected: onSelected,
       dropdownMenuEntries: values.map<DropdownMenuEntry<String>>(
         (value) {
           return DropdownMenuEntry<String>(

@@ -4,8 +4,8 @@ import '../models/student.dart';
 
 class StudentProvider with ChangeNotifier {
   // TODO: initialize students from storage
-  final _students = const <Student>[
-    Student(
+  final _students = <Student>[
+    const Student(
       id: '0',
       fullName: 'Ayele Lemma',
       christianName: 'Kidane Mariam',
@@ -14,7 +14,7 @@ class StudentProvider with ChangeNotifier {
       batch: 2014,
       phone: '0968127581',
     ),
-    Student(
+    const Student(
       id: '1',
       fullName: 'Mussie Alemayehu',
       christianName: 'Kidane Mariam',
@@ -23,7 +23,7 @@ class StudentProvider with ChangeNotifier {
       batch: 2014,
       phone: '0968127581',
     ),
-    Student(
+    const Student(
       id: '2',
       fullName: 'Mussie Alemayehu',
       christianName: 'Kidane Mariam',

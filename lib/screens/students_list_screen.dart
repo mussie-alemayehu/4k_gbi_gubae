@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import './template_screen.dart';
 import '../widgets/batch_selector.dart';
@@ -33,8 +34,6 @@ class _StudentsListScreenState extends State<StudentsListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final students = StudentProvider().students;
-
     return TemplateScreen(
       title: 'የተማሪ መረጃ',
       body: Column(
@@ -45,9 +44,16 @@ class _StudentsListScreenState extends State<StudentsListScreen> {
             onTap: _updateBatch,
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: students.length,
-              itemBuilder: (ctx, index) => StudentListItem(students[index]),
+            child: Consumer<StudentProvider>(
+              builder: (ctx, studentsProvider, _) {
+                // initialize the students in the system
+                final students = studentsProvider.students;
+
+                return ListView.builder(
+                  itemCount: students.length,
+                  itemBuilder: (ctx, index) => StudentListItem(students[index]),
+                );
+              },
             ),
           ),
         ],
