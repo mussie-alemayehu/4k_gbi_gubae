@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:gubae_ze4k/models/student.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +5,8 @@ import 'package:provider/provider.dart';
 import './template_screen.dart';
 import '../providers/student_provider.dart';
 import '../services/input_validators.dart' as validators;
+import '../widgets/input_widgets/input_field.dart';
+import '../widgets/input_widgets/custom_dropdown_menu.dart';
 
 class NewStudentScreen extends StatefulWidget {
   static const routeName = '/new_student';
@@ -64,8 +64,8 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _inputField(
-                        context: context,
+                      // an input field to take the full name of the student
+                      InputField(
                         title: 'ሙሉ ሥም',
                         validator: validators.nameValidator,
                         onSaved: (String? value) {
@@ -74,8 +74,8 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
                         },
                       ),
                       const SizedBox(height: 16),
-                      _inputField(
-                          context: context,
+                      // an input field to take the christian name of the student
+                      InputField(
                           title: 'ክርስትና ሥም',
                           validator: validators.nameValidator,
                           onSaved: (String? value) {
@@ -83,8 +83,8 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
                             studentInfo['christian_name'] = value;
                           }),
                       const SizedBox(height: 16),
-                      _inputField(
-                          context: context,
+                      // an input field to take the id of the student
+                      InputField(
                           title: 'መለያ (ID)',
                           validator: validators.idValidator,
                           onSaved: (String? value) {
@@ -92,8 +92,8 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
                             studentInfo['id'] = value;
                           }),
                       const SizedBox(height: 16),
-                      _dropdown(
-                          context: context,
+                      // an custom dropdown menu to take the sex of the student
+                      CustomDropdownMenu(
                           title: 'ፆታ',
                           hint: 'ፆታ ይምረጡ....',
                           values: sexes,
@@ -103,8 +103,8 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
                             studentInfo['sex'] = value;
                           }),
                       const SizedBox(height: 16),
-                      _inputField(
-                          context: context,
+                      // an input field to take the phone of the student
+                      InputField(
                           title: 'ስልክ',
                           validator: validators.phoneValidator,
                           onSaved: (String? value) {
@@ -112,8 +112,8 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
                             studentInfo['phone'] = value;
                           }),
                       const SizedBox(height: 16),
-                      _dropdown(
-                          context: context,
+                      // an custom dropdown menu to take the department of the student
+                      CustomDropdownMenu(
                           title: 'ዲፓርትመንት',
                           hint: 'ዲፓርትመንት ይምረጡ....',
                           values: departments,
@@ -123,8 +123,8 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
                             studentInfo['department'] = value;
                           }),
                       const SizedBox(height: 16),
-                      _inputField(
-                          context: context,
+                      // an input field to take the batch of the student
+                      InputField(
                           title: 'ባች',
                           validator: validators.batchValidator,
                           onSaved: (String? value) {
@@ -197,97 +197,6 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
           ),
         ],
       ),
-    );
-  }
-
-  // this function will return a new text field with the provided arguments
-  Widget _inputField({
-    required BuildContext context,
-    required String title,
-    required void Function(String?) onSaved,
-    String? Function(String?)? validator,
-  }) {
-    return TextFormField(
-      style: TextStyle(color: Theme.of(context).primaryColor),
-      validator: validator,
-      decoration: InputDecoration(
-        // isDense has to be true so that we can set custom padding in the
-        // TextField
-        label: Text(
-          title,
-          style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 12),
-        ),
-        isDense: true,
-        contentPadding: const EdgeInsets.symmetric(vertical: 6),
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.primary,
-          ),
-        ),
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.primary,
-            width: 3,
-          ),
-        ),
-        errorBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.error,
-          ),
-        ),
-        border: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Theme.of(context).primaryColor,
-          ),
-        ),
-      ),
-      onSaved: onSaved,
-    );
-  }
-
-  Widget _dropdown({
-    required BuildContext context,
-    required String title,
-    required String hint,
-    required List<String> values,
-    required double width,
-    required void Function(String?) onSelected,
-  }) {
-    return DropdownMenu(
-      width: max(200, width * 0.7).toDouble(),
-      label: Text(title),
-      textStyle: TextStyle(
-        color: Theme.of(context).primaryColor,
-      ),
-      menuStyle: MenuStyle(
-        visualDensity: VisualDensity.compact,
-        backgroundColor: MaterialStatePropertyAll(
-          Theme.of(context).colorScheme.secondary,
-        ),
-      ),
-      inputDecorationTheme: InputDecorationTheme(
-        isDense: true,
-        suffixIconColor: Theme.of(context).primaryColor,
-        labelStyle:
-            TextStyle(color: Theme.of(context).primaryColor, fontSize: 12),
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.primary,
-          ),
-        ),
-      ),
-      onSelected: onSelected,
-      dropdownMenuEntries: values.map<DropdownMenuEntry<String>>(
-        (value) {
-          return DropdownMenuEntry<String>(
-            label: value,
-            value: value,
-            style: TextButton.styleFrom(
-              foregroundColor: Theme.of(context).primaryColor,
-            ),
-          );
-        },
-      ).toList(),
     );
   }
 }
