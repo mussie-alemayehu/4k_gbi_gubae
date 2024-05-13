@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gubae_ze4k/services/db_services.dart';
 
 import '../models/student.dart';
 
@@ -38,8 +39,13 @@ class StudentProvider with ChangeNotifier {
   List<Student> get students => [..._students];
 
   // add students in the system
-  void addStudent(Student stud) {
-    _students.add(stud);
-    notifyListeners();
+  void addStudent(Student stud) async {
+    try {
+      DBService.addStudent(stud);
+      _students.add(stud);
+      notifyListeners();
+    } catch (error) {
+      print(error);
+    }
   }
 }
