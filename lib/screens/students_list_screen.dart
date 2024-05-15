@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gubae_ze4k/widgets/custom_progress_indicator.dart';
 import 'package:provider/provider.dart';
 
 import './template_screen.dart';
@@ -47,9 +48,7 @@ class _StudentsListScreenState extends State<StudentsListScreen> {
             child: Consumer<StudentProvider>(
               builder: (ctx, studentsProvider, _) {
                 if (!studentsProvider.initLoaded) {
-                  return CircularProgressIndicator(
-                    color: Theme.of(context).primaryColor,
-                  );
+                  return const CustomProgressIndicator();
                 } else {
                   // initialize the students in the system
                   final students = studentsProvider.students;

@@ -4,7 +4,6 @@ import 'package:gubae_ze4k/services/db_services.dart';
 import '../models/student.dart';
 
 class StudentProvider with ChangeNotifier {
-  // TODO: initialize students from storage
   final _students = <Student>[];
 
   // a variable that will be used to check whether the initialization is complte or not
