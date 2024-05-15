@@ -46,13 +46,20 @@ class _StudentsListScreenState extends State<StudentsListScreen> {
           Expanded(
             child: Consumer<StudentProvider>(
               builder: (ctx, studentsProvider, _) {
-                // initialize the students in the system
-                final students = studentsProvider.students;
+                if (!studentsProvider.initLoaded) {
+                  return CircularProgressIndicator(
+                    color: Theme.of(context).primaryColor,
+                  );
+                } else {
+                  // initialize the students in the system
+                  final students = studentsProvider.students;
 
-                return ListView.builder(
-                  itemCount: students.length,
-                  itemBuilder: (ctx, index) => StudentListItem(students[index]),
-                );
+                  return ListView.builder(
+                    itemCount: students.length,
+                    itemBuilder: (ctx, index) =>
+                        StudentListItem(students[index]),
+                  );
+                }
               },
             ),
           ),

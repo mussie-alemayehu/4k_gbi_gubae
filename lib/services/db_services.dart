@@ -46,15 +46,20 @@ class DBService {
       "'${student.department}',"
       "'${student.sex}',"
       "'${student.phone}',"
-      "'${student.batch}'),"
-      "'${time.toIso8601String()}'",
+      "'${student.batch}',"
+      "'${time.toIso8601String()}')",
     );
   }
 
+  // to get all the student data available in internal storage
   static Future<List<Map<String, dynamic>>> getData() async {
     final db = await _database();
 
     final data = await db.query('students');
+
+    for (var dat in data) {
+      print(dat);
+    }
     return data;
   }
 }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/auth_screen_widgets/auth_app_bar.dart';
 import './attendance_recording_screen.dart';
 import './new_student_screen.dart';
 import './students_list_screen.dart';
+import '../providers/student_provider.dart';
 
 class RoleChoiceScreen extends StatelessWidget {
   static const routeName = '/role_choice';
@@ -48,6 +50,9 @@ class RoleChoiceScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // initialize the data to be used when the app starts
+    Provider.of<StudentProvider>(context, listen: false).initializeData();
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.secondary,
       body: SingleChildScrollView(
