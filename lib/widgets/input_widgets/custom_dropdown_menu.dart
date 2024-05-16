@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 class CustomDropdownMenu extends StatelessWidget {
   final String title;
-  final String hint;
   final List<String> values;
   final double width;
   final void Function(String?) onSelected;
@@ -12,7 +11,6 @@ class CustomDropdownMenu extends StatelessWidget {
   const CustomDropdownMenu({
     super.key,
     required this.title,
-    required this.hint,
     required this.values,
     required this.width,
     required this.onSelected,

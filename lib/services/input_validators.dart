@@ -36,16 +36,6 @@ String? idValidator(String? value) {
   return null;
 }
 
-String? batchValidator(String? value) {
-  if (value == null || value.isEmpty) {
-    return 'እባክዎ የተማሪውን ባች ይሙሉ።';
-  }
-  if (!RegExp(r'^2[0-9]{3}$').hasMatch(value)) {
-    return 'ያስገቡት ባች ትክክል አይደለም።';
-  }
-  return null;
-}
-
 // this validator may be used later
 // TODO: to be removed if not used
 

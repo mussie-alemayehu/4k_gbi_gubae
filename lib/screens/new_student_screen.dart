@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../models/student.dart';
+import '../models/choices.dart';
 import './template_screen.dart';
 import '../providers/student_provider.dart';
 import '../services/input_validators.dart' as validators;
@@ -28,18 +29,6 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
     final width = MediaQuery.of(context).size.width;
     final studentsProvider =
         Provider.of<StudentProvider>(context, listen: false);
-
-    const departments = [
-      'Computer Science',
-      'Biology',
-      'Chemistry',
-      'Physics',
-      'Mathematics',
-      'Geology',
-      'Sport Science',
-      'Teaching',
-    ];
-    const sexes = ['ወንድ', 'ሴት'];
 
     return TemplateScreen(
       title: 'ተማሪ ጨምር',
@@ -99,8 +88,7 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
                             // an custom dropdown menu to take the sex of the student
                             CustomDropdownMenu(
                                 title: 'ፆታ',
-                                hint: 'ፆታ ይምረጡ....',
-                                values: sexes,
+                                values: Choices.sexes,
                                 width: width,
                                 onSelected: (String? value) {
                                   if (value == null) return;
@@ -118,23 +106,46 @@ class _NewStudentScreenState extends State<NewStudentScreen> {
                             const SizedBox(height: 16),
                             // an custom dropdown menu to take the department of the student
                             CustomDropdownMenu(
-                                title: 'ዲፓርትመንት',
-                                hint: 'ዲፓርትመንት ይምረጡ....',
-                                values: departments,
-                                width: width,
-                                onSelected: (String? value) {
-                                  if (value == null) return;
-                                  studentInfo['department'] = value;
-                                }),
+                              title: 'ዲፓርትመንት',
+                              values: Choices.departments,
+                              width: width,
+                              onSelected: (value) {
+                                if (value == null) return;
+                                studentInfo['department'] = value;
+                              },
+                            ),
                             const SizedBox(height: 16),
-                            // an input field to take the batch of the student
-                            InputField(
-                                title: 'ባች',
-                                validator: validators.batchValidator,
-                                onSaved: (String? value) {
-                                  if (value == null) return;
-                                  studentInfo['batch'] = int.parse(value);
-                                }),
+                            // an custom dropdown menu to take the batch of the student
+                            CustomDropdownMenu(
+                              title: 'ባች',
+                              values: Choices.batches,
+                              width: width,
+                              onSelected: (value) {
+                                if (value != null) {
+                                  int batch = 0;
+
+                                  // initialize the value of batch accourding to the batch chosen
+                                  switch (value) {
+                                    case '1ኛ አመት':
+                                      batch = 1;
+                                      break;
+                                    case '2ኛ አመት':
+                                      batch = 2;
+                                      break;
+                                    case '3ኛ አመት':
+                                      batch = 3;
+                                      break;
+                                    case '4ኛ አመት':
+                                      batch = 4;
+                                      break;
+                                    case '5ኛ አመት':
+                                      batch = 5;
+                                      break;
+                                  }
+                                  studentInfo['batch'] = batch;
+                                }
+                              },
+                            ),
                             const SizedBox(height: 16),
                             Text(
                               'ተቆጣጣሪ (optional)',
