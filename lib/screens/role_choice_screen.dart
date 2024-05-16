@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:gubae_ze4k/screens/batch_choosing_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/auth_screen_widgets/auth_app_bar.dart';
 import './attendance_recording_screen.dart';
 import './new_student_screen.dart';
-import './students_list_screen.dart';
 import '../providers/student_provider.dart';
 
 class RoleChoiceScreen extends StatelessWidget {
@@ -114,7 +114,7 @@ class RoleChoiceScreen extends StatelessWidget {
                               context,
                               name: 'የተማሪ መረጃ',
                               action: () => Navigator.of(context).pushNamed(
-                                StudentsListScreen.routeName,
+                                BatchChoosingScreen.routeName,
                               ),
                             ),
                           ),

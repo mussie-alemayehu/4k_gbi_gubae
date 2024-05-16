@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import './screens/role_choice_screen.dart';
 import './screens/attendance_recording_screen.dart';
+import './screens/batch_choosing_screen.dart';
 import './screens/new_student_screen.dart';
 import './screens/students_list_screen.dart';
 import './providers/student_provider.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
               const AttendanceRecordingScreen(),
           NewStudentScreen.routeName: (_) => const NewStudentScreen(),
           StudentsListScreen.routeName: (_) => const StudentsListScreen(),
+          BatchChoosingScreen.routeName: (_) => const BatchChoosingScreen(),
         },
       ),
     );
