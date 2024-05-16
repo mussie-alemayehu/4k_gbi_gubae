@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gubae_ze4k/screens/template_screen.dart';
+
+import '../models/choices.dart';
+import './template_screen.dart';
+import '../widgets/batch_choosing_screen_widgets/batch_list_item.dart';
 
 class BatchChoosingScreen extends StatelessWidget {
   static const routeName = '/batch_choosing';
@@ -8,9 +11,13 @@ class BatchChoosingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const TemplateScreen(
+    return TemplateScreen(
       title: 'ባች ይምረጡ',
-      body: Placeholder(),
+      body: ListView.builder(
+        padding: const EdgeInsets.only(top: 20),
+        itemCount: Choices.batches.length,
+        itemBuilder: (ctx, index) => BatchListItem(Choices.batches[index]),
+      ),
     );
   }
 }

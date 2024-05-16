@@ -57,9 +57,6 @@ class DBService {
 
     final data = await db.query('students');
 
-    for (var dat in data) {
-      print(dat);
-    }
     return data;
   }
 }

@@ -9,8 +9,10 @@ class StudentProvider with ChangeNotifier {
   // a variable that will be used to check whether the initialization is complte or not
   bool initLoaded = false;
 
-  // get all the students that are in the system
-  List<Student> get students => [..._students];
+  // get all students for a specified batch in the system
+  List<Student> students(int batch) => [
+        ..._students.where((student) => student.batch == batch),
+      ];
 
   // to initialize the app with data from internal storage
   // TODO: implement fetching from the cloud store once the store is connected
